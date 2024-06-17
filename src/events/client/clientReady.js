@@ -21,7 +21,7 @@ module.exports = async (client) => {
             statuttext = [
                 `・❓┆/help`,
                 `・💻┆${client.guilds.cache.size} servers`,
-                `・📨┆discord.gg/YEu6UYGaXA`,
+                `・📨┆discord.gg/ONeity`,
                 `・🎉┆400+ commands`,
                 `・🏷️┆Version ${require(`${process.cwd()}/package.json`).version}`
             ];
