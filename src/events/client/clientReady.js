@@ -22,7 +22,7 @@ module.exports = async (client) => {
                 `・❓┆/help`,
                 `・💻┆${client.guilds.cache.size} servers`,
                 `・📨┆discord.gg/ONeity`,
-                `・🎉┆400+ commands`,
+                `・✨┆ONeity Community`,
                 `・🏷️┆Version ${require(`${process.cwd()}/package.json`).version}`
             ];
         }
