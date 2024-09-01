@@ -70,10 +70,10 @@ client.player = new Manager({
     plugins,
     nodes: [
         {
-            host: process.env.LAVALINK_HOST || "nyc01.jxshua.dev",
-            port: parseInt(process.env.LAVALINK_PORT) || 4000,
-            password: process.env.LAVALINK_PASSWORD || "youshallnotpass",
-            secure: Boolean(process.env.LAVALINK_SECURE) || false
+            host: process.env.LAVALINK_HOST || "lava-v4.ajieblogs.eu.org",
+            port: parseInt(process.env.LAVALINK_PORT) || 443,
+            password: process.env.LAVALINK_PASSWORD || "https://dsc.gg/ajidevserver",
+            secure: Boolean(process.env.LAVALINK_SECURE) || true
         },
     ],
     send(id, payload) {
