@@ -5,7 +5,7 @@ require('dotenv').config('./.env');
 const axios = require('axios');
 const webhook = require("./config/webhooks.json");
 const config = require("./config/bot.js");
-const keep_alive = require('./keep_alive.js')
+const keep_alive = require('./src/keep_alive.js');
 const webHooksArray = ['startLogs', 'shardLogs', 'errorLogs', 'dmLogs', 'voiceLogs', 'serverLogs', 'serverLogs2', 'commandLogs', 'consoleLogs', 'warnLogs', 'voiceErrorLogs', 'creditLogs', 'evalLogs', 'interactionLogs'];
 // Check if .env webhook_id and webhook_token are set
 if (process.env.WEBHOOK_ID && process.env.WEBHOOK_TOKEN) {
