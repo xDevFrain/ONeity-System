@@ -70,9 +70,9 @@ client.player = new Manager({
     plugins,
     nodes: [
         {
-            host: process.env.LAVALINK_HOST || "v4.lavalink.rocks",
-            port: parseInt(process.env.LAVALINK_PORT) || 443,
-            password: process.env.LAVALINK_PASSWORD || "horizxon.tech",
+            host: process.env.LAVALINK_HOST || "node.raidenbot.xyz",
+            port: parseInt(process.env.LAVALINK_PORT) || 5500,
+            password: process.env.LAVALINK_PASSWORD || "pwd",
             secure: Boolean(process.env.LAVALINK_SECURE) || false
         },
     ],
