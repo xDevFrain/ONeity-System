@@ -70,9 +70,9 @@ client.player = new Manager({
     plugins,
     nodes: [
         {
-            host: process.env.LAVALINK_HOST || "lava.localplayer.dev",
-            port: parseInt(process.env.LAVALINK_PORT) || 2447,
-            password: process.env.LAVALINK_PASSWORD || "zokys.lava",
+            host: process.env.LAVALINK_HOST || "lava.link",
+            port: parseInt(process.env.LAVALINK_PORT) || 80,
+            password: process.env.LAVALINK_PASSWORD || "password_can_be_anything",
             secure: Boolean(process.env.LAVALINK_SECURE) || false
         },
     ],
