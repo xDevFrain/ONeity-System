@@ -70,9 +70,9 @@ client.player = new Manager({
     plugins,
     nodes: [
         {
-            host: process.env.LAVALINK_HOST || "node.raidenbot.xyz",
-            port: parseInt(process.env.LAVALINK_PORT) || 5500,
-            password: process.env.LAVALINK_PASSWORD || "pwd",
+            host: process.env.LAVALINK_HOST || "lava-v4.ajieblogs.eu.org",
+            port: parseInt(process.env.LAVALINK_PORT) || 80,
+            password: process.env.LAVALINK_PASSWORD || "https://dsc.gg/ajidevserver",
             secure: Boolean(process.env.LAVALINK_SECURE) || false
         },
     ],
