@@ -70,10 +70,10 @@ client.player = new Manager({
     plugins,
     nodes: [
         {
-            host: process.env.LAVALINK_HOST || "lavalink1.skybloxsystems.com",
-            port: parseInt(process.env.LAVALINK_PORT) || 443,
-            password: process.env.LAVALINK_PASSWORD || "s4DarqP$&y",
-            secure: Boolean(process.env.LAVALINK_SECURE) || true
+            host: process.env.LAVALINK_HOST || "lavalink01.techbyte.host",
+            port: parseInt(process.env.LAVALINK_PORT) || 2036,
+            password: process.env.LAVALINK_PASSWORD || "NAIGLAVA-dash.techbyte.host",
+            secure: Boolean(process.env.LAVALINK_SECURE) || false
         },
     ],
     send(id, payload) {
