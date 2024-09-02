@@ -99,7 +99,7 @@ module.exports = {
             endButton = new ButtonBuilder().setStyle(2).setEmoji(`⏭️`).setCustomId('end'),
             link = new ButtonBuilder().setStyle(5).setLabel("S" + "u" + "b" + "sc" + "ri" + "b" + "e" + "!").setEmoji(`🥹`).setURL('https://www.youtube.com/channel/UC2fwRvYGIPUry_i3XLbTCkg')
 
-        const options = [{ label: 'Owerview', value: '0' }]
+        const options = [{ label: 'Overview', value: '0' }]
         const options2 = []
 
         let counter = 0
