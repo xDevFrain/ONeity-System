@@ -1,5 +1,3 @@
-
-
 const { CommandInteraction, Client } = require('discord.js');
 const { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');
 const Discord = require('discord.js');
