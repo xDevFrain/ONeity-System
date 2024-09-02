@@ -1,3 +1,5 @@
+
+
 const { CommandInteraction, Client } = require('discord.js');
 const { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');
 const Discord = require('discord.js');
@@ -88,131 +90,116 @@ module.exports = {
                     value: "\u200b",
                     inline: true
                 },
-            ]);
+            ])
+
 
         let startButton = new ButtonBuilder().setStyle(2).setEmoji(`⏮️`).setCustomId('start'),
             backButton = new ButtonBuilder().setStyle(2).setEmoji(`⬅️`).setCustomId('back'),
             forwardButton = new ButtonBuilder().setStyle(2).setEmoji(`➡️`).setCustomId('forward'),
             endButton = new ButtonBuilder().setStyle(2).setEmoji(`⏭️`).setCustomId('end'),
-            link = new ButtonBuilder().setStyle(5).setLabel("Subscribe!").setEmoji(`🥹`).setURL('https://www.youtube.com/channel/UC2fwRvYGIPUry_i3XLbTCkg');
+            link = new ButtonBuilder().setStyle(5).setLabel("S" + "u" + "b" + "sc" + "ri" + "b" + "e" + "!").setEmoji(`🥹`).setURL('https://www.youtube.com/channel/UC2fwRvYGIPUry_i3XLbTCkg')
 
-        const options = [{ label: 'Overview', value: '0' }];
-        const options2 = [];
+        const options = [{ label: 'Owerview', value: '0' }]
+        const options2 = []
 
-        let counter = 0;
-        let counter2 = 25;
+        let counter = 0
+        let counter2 = 25
         require("fs").readdirSync(`${process.cwd()}/src/commands`).slice(0, 24).forEach(dirs => {
-            counter++;
+            counter++
             const opt = {
                 label: toUpperCase(dirs.replace("-", " ")),
                 value: `${counter}`
-            };
-            options.push(opt);
-        });
+            }
+            options.push(opt)
+        })
         require("fs").readdirSync(`${process.cwd()}/src/commands`).slice(25, 37).forEach(dirs => {
-            counter2++;
+            counter2++
             const opt = {
                 label: toUpperCase(dirs.replace("-", " ")),
                 value: `${counter2}`
-            };
-            options2.push(opt);
-        });
+            }
+            options2.push(opt)
+        })
 
         let menu = new StringSelectMenuBuilder().setPlaceholder('Change page').setCustomId('pagMenu').addOptions(options).setMaxValues(1).setMinValues(1),
-            menu2 = new StringSelectMenuBuilder().setPlaceholder('Change page').setCustomId('pagMenu2').addOptions(options2).setMaxValues(1).setMinValues(1);
+            menu2 = new StringSelectMenuBuilder().setPlaceholder('Change page').setCustomId('pagMenu2').addOptions(options2).setMaxValues(1).setMinValues(1)
 
-        const allButtons = [startButton.setDisabled(true), backButton.setDisabled(true), forwardButton.setDisabled(false), endButton.setDisabled(false), link];
+        const allButtons = [startButton.setDisabled(true), backButton.setDisabled(true), forwardButton.setDisabled(false), endButton.setDisabled(false), link]
 
-        let group1 = new ActionRowBuilder().addComponents(menu);
-        let group2 = new ActionRowBuilder().addComponents(allButtons);
-        let group3 = new ActionRowBuilder().addComponents(menu2);
+        let group1 = new ActionRowBuilder().addComponents(menu)
+        let group2 = new ActionRowBuilder().addComponents(allButtons)
+        let group3 = new ActionRowBuilder().addComponents(menu2)
 
-        const components = [group2, group1, group3];
+        const components = [group2, group1, group3]
 
         let helpMessage = await interaction.reply({
             content: `Click on the buttons to change page`,
             embeds: [em1],
             components: components,
-        });
+        })
 
-        const collector = helpMessage.createMessageComponentCollector({ filter: (button) => button.user.id === interaction.user.id, time: 60e3 });
+        const collector = helpMessage.createMessageComponentCollector((button) => button.user.id === interaction.user.id, { time: 60e3 });
 
-        var embeds = [em1];
+        var embeds = [em1]
 
-        // التأكد من أن المصفوفة ليست undefined
-        require("fs").readdirSync(`${process.cwd()}/src/commands`).forEach(dirs => {
-            const commandEmbed = new EmbedBuilder()
-                .setAuthor({ name: toUpperCase(dirs), iconURL: client.user.displayAvatarURL({ format: "png" }), url: `https://dsc.gg/uoaiod` })
-                .setDescription(`${commad(dirs)}`);
-            embeds.push(commandEmbed);
-        });
+        require("fs").readdirSync(`${process.cwd()}/src/commands`).forEach(dirs => { embeds.push(new EmbedBuilder().setAuthor({ name: toUpperCase(dirs), iconURL: client.user.displayAvatarURL({ format: "png" }), url: `h` + `tt` + `ps:` + `//` + `d` + `s` + `c` + `.` + `gg` + `/u` + `o` + `a` + `i` + `o` }).setDescription(`${commad(dirs)}`)) })
 
-        let currentPage = 0;
+        let currentPage = 0
 
         collector.on('collect', async (b) => {
-            if (b.user.id !== interaction.user.id) {
+            if (b.user.id !== interaction.user.id)
                 return b.reply({
                     content: `**You Can't Use it\n**`,
                     ephemeral: true
                 });
-            }
-
-            // التأكد من أن currentPage صحيح داخل النطاق
             switch (b.customId) {
                 case 'start':
-                    currentPage = 0;
-                    group2 = new ActionRowBuilder().addComponents([startButton.setDisabled(true), backButton.setDisabled(true), forwardButton.setDisabled(false), endButton.setDisabled(false)]);
+                    currentPage = 0
+                    group2 = new ActionRowBuilder().addComponents([startButton.setDisabled(true), backButton.setDisabled(true), forwardButton.setDisabled(false), endButton.setDisabled(false)])
+                    b.update({ embeds: [embeds[currentPage]], components: components })
                     break;
                 case 'back':
-                    if (currentPage > 0) currentPage--;
-                    group2 = new ActionRowBuilder().addComponents([
-                        startButton.setDisabled(currentPage === 0), 
-                        backButton.setDisabled(currentPage === 0), 
-                        forwardButton.setDisabled(false), 
-                        endButton.setDisabled(false)
-                    ]);
+                    --currentPage;
+                    if (currentPage === 0) { group2 = new ActionRowBuilder().addComponents([startButton.setDisabled(true), backButton.setDisabled(true), forwardButton.setDisabled(false), endButton.setDisabled(false)]) } else { group2 = new ActionRowBuilder().addComponents([startButton.setDisabled(false), backButton.setDisabled(false), forwardButton.setDisabled(false), endButton.setDisabled(false)]) }
+                    b.update({ embeds: [embeds[currentPage]], components: components })
                     break;
                 case 'forward':
-                    if (currentPage < embeds.length - 1) currentPage++;
-                    group2 = new ActionRowBuilder().addComponents([
-                        startButton.setDisabled(false), 
-                        backButton.setDisabled(false), 
-                        forwardButton.setDisabled(currentPage === embeds.length - 1), 
-                        endButton.setDisabled(currentPage === embeds.length - 1)
-                    ]);
+                    currentPage++;
+                    if (currentPage === embeds.length - 1) { group2 = new ActionRowBuilder().addComponents([startButton.setDisabled(false), backButton.setDisabled(false), forwardButton.setDisabled(true), endButton.setDisabled(true)]) } else { group2 = new ActionRowBuilder().addComponents([startButton.setDisabled(false), backButton.setDisabled(false), forwardButton.setDisabled(false), endButton.setDisabled(false)]) }
+                    b.update({ embeds: [embeds[currentPage]], components: components })
                     break;
                 case 'end':
                     currentPage = embeds.length - 1;
-                    group2 = new ActionRowBuilder().addComponents([startButton.setDisabled(false), backButton.setDisabled(false), forwardButton.setDisabled(true), endButton.setDisabled(true)]);
+                    group2 = new ActionRowBuilder().addComponents([startButton.setDisabled(false), backButton.setDisabled(false), forwardButton.setDisabled(true), endButton.setDisabled(true)])
+                    b.update({ embeds: [embeds[currentPage]], components: components })
                     break;
                 case 'pagMenu':
+                    currentPage = parseInt(b.values[0])
+                    if (currentPage === 0) { group2 = new ActionRowBuilder().addComponents([startButton.setDisabled(true), backButton.setDisabled(true), forwardButton.setDisabled(false), endButton.setDisabled(false)]) } else if (currentPage === embeds.length - 1) { group2 = new ActionRowBuilder().addComponents([startButton.setDisabled(false), backButton.setDisabled(false), forwardButton.setDisabled(true), endButton.setDisabled(true)]) } else { group2 = new ActionRowBuilder().addComponents([startButton.setDisabled(false), backButton.setDisabled(false), forwardButton.setDisabled(false), endButton.setDisabled(false)]) }
+                    b.update({ embeds: [embeds[currentPage]], components: components })
+                    break;
                 case 'pagMenu2':
-                    currentPage = parseInt(b.values[0], 10);
-                    group2 = new ActionRowBuilder().addComponents([
-                        startButton.setDisabled(currentPage === 0), 
-                        backButton.setDisabled(currentPage === 0), 
-                        forwardButton.setDisabled(currentPage === embeds.length - 1), 
-                        endButton.setDisabled(currentPage === embeds.length - 1)
-                    ]);
+                    currentPage = parseInt(b.values[0])
+                    if (currentPage === 0) { group2 = new ActionRowBuilder().addComponents([startButton.setDisabled(true), backButton.setDisabled(true), forwardButton.setDisabled(false), endButton.setDisabled(false)]) } else if (currentPage === embeds.length - 1) { group2 = new ActionRowBuilder().addComponents([startButton.setDisabled(false), backButton.setDisabled(false), forwardButton.setDisabled(true), endButton.setDisabled(true)]) } else { group2 = new ActionRowBuilder().addComponents([startButton.setDisabled(false), backButton.setDisabled(false), forwardButton.setDisabled(false), endButton.setDisabled(false)]) }
+                    b.update({ embeds: [embeds[currentPage]], components: components })
                     break;
                 default:
-                    currentPage = 0;
+                    currentPage = 0
+                    b.update({ embeds: [embeds[currentPage]], components: null })
                     break;
             }
-
-            await b.update({ embeds: [embeds[currentPage]], components: components });
         });
 
-        collector.on('end', async (b) => {
-            if (b.size > 0) {
-                await b.last().update({ embeds: [embeds[currentPage]], components: [] });
-            }
+        collector.on('end', b => {
+            b.update({ embeds: [helpMessage.embeds[0]], content: [], components: [] })
         });
 
         collector.on('error', (e) => console.log(e));
 
-        // إضافة فحص للألوان والصور وضمان سلامة المصفوفة
-        embeds.forEach((embed, index) => {
-            embed.setColor("#5865F2")
-                .setImage(`https://i.stack.imgur.com/Fzh0w.png`)
-               
+        embeds.map((embed, index) => {
+            embed.setColor("#5865F2").setImage(`https://i.stack.imgur.com/Fzh0w.png`)
+                .setFooter({ text: `Page ${index + 1} / ${embeds.length}`, iconURL: client.user.displayAvatarURL() });
+        })
+
+    },
+};
