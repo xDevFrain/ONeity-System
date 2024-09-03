@@ -94,7 +94,7 @@ module.exports = {
         let startButton = new ButtonBuilder().setStyle(2).setEmoji(`⏮️`).setCustomId('start'),
             backButton = new ButtonBuilder().setStyle(2).setEmoji(`⬅️`).setCustomId('back'),
             forwardButton = new ButtonBuilder().setStyle(2).setEmoji(`➡️`).setCustomId('forward'),
-            endButton = new ButtonBuilder().setStyle(2).setEmoji(`⏭️`).setCustomId('end');
+            endButton = new ButtonBuilder().setStyle(2).setEmoji(`⏭️`).setCustomId('end')
 
         const options = [{ label: 'Overview', value: '0' }]
         const options2 = []
