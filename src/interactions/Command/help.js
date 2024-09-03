@@ -7,7 +7,7 @@ require("moment-duration-format");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('help')
-        .setDescription('Get help with the bot'),
+        .setDescription('Get help with ONeity System bot'),
 
     /** 
      * @param {Client} client
@@ -95,7 +95,6 @@ module.exports = {
             backButton = new ButtonBuilder().setStyle(2).setEmoji(`⬅️`).setCustomId('back'),
             forwardButton = new ButtonBuilder().setStyle(2).setEmoji(`➡️`).setCustomId('forward'),
             endButton = new ButtonBuilder().setStyle(2).setEmoji(`⏭️`).setCustomId('end'),
-            link = new ButtonBuilder().setStyle(5).setLabel("S" + "u" + "b" + "sc" + "ri" + "b" + "e" + "!").setEmoji(`🥹`).setURL('https://www.youtube.com/channel/UC2fwRvYGIPUry_i3XLbTCkg')
 
         const options = [{ label: 'Overview', value: '0' }]
         const options2 = []
