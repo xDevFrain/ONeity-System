@@ -11,8 +11,6 @@ module.exports = {
         id: process.env.DISCORD_ID,
         prefix: '!',
         footer: `© Frain 2021 - ${new Date().getFullYear()}`, 
-        botInvite: `https://discord.com/oauth2/authorize?&client_id=840212110817755157&scope=applications.commands+bot&permissions=8`,
-        serverInvite: "https://discord.gg/YEu6UYGaXA",
     },
 
     wordList: `Airplane
