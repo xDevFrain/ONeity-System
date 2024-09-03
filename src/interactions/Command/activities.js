@@ -18,7 +18,6 @@ module.exports = {
                     { name: 'Chef Showdown', value: 'chefshowdown' },
                     { name: 'Checkers in the Park', value: 'checkers' },
                     { name: 'Chess In The Park', value: 'chess' },
-                    { name: 'Colonist', value: 'colonist' },
                     { name: 'Color Together', value: 'colortogether' },
                     { name: 'Death by AI', value: 'deathbyai' },
                     { name: 'Farm Merge Valley', value: 'farm' },
@@ -31,7 +30,6 @@ module.exports = {
                     { name: 'Poker Night', value: 'poker' },
                     { name: 'Putt Party', value: 'puttparty' },
                     { name: 'Rocket Bot Royale', value: 'rocket' },
-                    { name: 'Roll20', value: 'roll' },
                     { name: 'Rythm', value: 'rythm' },
                     { name: 'Sketch Heads', value: 'sketchheads' },
                     { name: 'Spell Cast', value: 'spellcast' },
@@ -79,9 +77,6 @@ module.exports = {
         else if (activity == "Chess In The Park") {
             client.generateActivity("832012774040141894", "chess", channel, interaction)
         }
-        else if (activity == "Colonist") {
-            client.generateActivity("1106787098452832296", "colonist", channel, interaction)
-        }
         else if (activity == "Color Together") {
             client.generateActivity("1039835161136746497", "colortogether", channel, interaction)
         }
@@ -117,9 +112,6 @@ module.exports = {
         }
         else if (activity == "Rocket Bot Royale") {
             client.generateActivity("1186796615432937584", "rocket", channel, interaction)
-        }
-        else if (activity == "Roll20") {
-            client.generateActivity("1199271093882589195", "roll", channel, interaction)
         }
         else if (activity == "Rythm") {
             client.generateActivity("235088799074484224", "rythm", channel, interaction)
