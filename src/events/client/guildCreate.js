@@ -43,22 +43,9 @@ module.exports = async (client, guild) => {
       }
     })
 
-    let row = new Discord.ActionRowBuilder()
-      .addComponents(
-        new Discord.ButtonBuilder()
-          .setLabel("Invite")
-          .setURL(client.config.discord.botInvite)
-          .setStyle(Discord.ButtonStyle.Link),
-
-        new Discord.ButtonBuilder()
-          .setLabel("Support server")
-          .setURL(client.config.discord.serverInvite)
-          .setStyle(Discord.ButtonStyle.Link),
-      );
-
     client.embed({
       title: "Thanks for inviting the bot!",
-      image: "https://cdn.discordapp.com/attachments/843487478881976381/874694194474668052/bot_banner_invite.jpg",
+      image: "https://cdn.discordapp.com/attachments/1279165137038872638/1280628775767375972/ONeity.jpg",
       fields: [{
         name: "❓┆How to setup?",
         value: 'The default prefix = \`/\` \nTo run setups with Bot run \`/setup\`',
@@ -66,7 +53,7 @@ module.exports = async (client, guild) => {
       },
       {
         name: "☎️┆I need help what now?",
-        value: `You can DM <@755297485328482356> for support or joining the [[Support server]](${client.config.discord.serverInvite})`,
+        value: `You can open a ticket in the [ONeity Community](https://discord.com/channels/1161377679145181204/1162806686063529984) and ask the developers`,
         inline: false,
       },
       {
@@ -74,13 +61,7 @@ module.exports = async (client, guild) => {
         value: 'See that list of commands by doing \`/help\`',
         inline: false,
       },
-      {
-        name: "📨┆Invite the bot!",
-        value: `Invite the bot to click [[HERE]](${client.config.discord.botInvite})`,
-        inline: false,
-      },
       ],
-      components: [row],
     }, defaultChannel)
   }
   catch (err) {

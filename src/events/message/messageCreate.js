@@ -389,13 +389,9 @@ module.exports = async (client, message) => {
     client
       .embed(
         {
-          title: "Hi, i'm Bot",
+          title: "Hi, i'm ONeity System Bot",
           desc: `Use with commands via Discord ${client.emotes.normal.slash} commands`,
           fields: [
-            {
-              name: "📨┆Invite me",
-              value: `Invite Bot in your own server! [Click here](${client.config.discord.botInvite})`,
-            },
             {
               name: "❓┇I don't see any slash commands",
               value:
@@ -403,7 +399,7 @@ module.exports = async (client, message) => {
             },
             {
               name: "❓┆Need support?",
-              value: `For questions you can join our [support server](${client.config.discord.serverInvite})!`,
+              value: `For questions you can open a ticket in the [ONeity Community](https://discord.com/channels/1161377679145181204/1162806686063529984) and ask the developers!`,
             },
             {
               name: "🐞┆Found a bug?",

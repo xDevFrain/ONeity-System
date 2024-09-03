@@ -52,7 +52,7 @@ module.exports = async (client) => {
 
                 client.embed({
                     title: `🌍・Community Server`,
-                    desc: `Talk and play games in the comunity server!`,
+                    desc: `Join us to chat and play games in the ONeity Community server!`,
                     image: "https://cdn.discordapp.com/attachments/843487478881976381/874694194474668052/Bot_banner_invite.jpg",
                     url: client.config.discord.botInvite,
                     components: [row2, row],
