@@ -44,12 +44,6 @@ module.exports = {
         )
         .addSubcommand(subcommand =>
             subcommand
-                .setName('docs')
-                .setDescription('See the discord.js docs')
-                .addStringOption(option => option.setName('name').setDescription('Your search name').setRequired(true))
-        )
-        .addSubcommand(subcommand =>
-            subcommand
                 .setName('github')
                 .setDescription('Get info on a github user just by entering their username')
                 .addStringOption(option => option.setName('name').setDescription('Enter a github name').setRequired(true))
