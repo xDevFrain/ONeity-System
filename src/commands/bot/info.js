@@ -12,7 +12,7 @@ module.exports = async (client, interaction, args) => {
     fields: [
       {
         name: "ℹ️┆Information",
-        value: `Bot is a bot with which you can run your entire server! With no less than 500+ commands, we have a large bot with many options to improve your server!`,
+        value: `ONeity System Bot enhances member experience by offering quick support, automating tasks, and providing personalized recommendations, making interactions smoother and more efficient., we have a large bot with many options to improve your experience in our server!`,
         inline: false,
       },
       {
@@ -94,11 +94,6 @@ module.exports = async (client, interaction, args) => {
         name: "💾┆Bot memory",
         value: `\`${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}\` MB`,
         inline: true,
-      },
-      {
-        name: "🔗┆Links",
-        value: `Add me: [[HERE]](${client.config.discord.botInvite}) \nSupport server: [[HERE]](${client.config.discord.serverInvite})`,
-        inline: false,
       }],
     type: 'editreply'
   }, interaction)

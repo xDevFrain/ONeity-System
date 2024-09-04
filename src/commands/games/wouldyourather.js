@@ -17,7 +17,7 @@ module.exports = async (client, interaction, args) => {
 
     const fetchhtml = async (url) => {
         const options = {
-            header: {
+            headers: {
                 'user-agent':
                     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
                 referer: 'https://www.google.com/',
@@ -87,47 +87,51 @@ module.exports = async (client, interaction, args) => {
 
                 btn.deferUpdate();
                 if (btn.customId === id1) {
-                    btn = new Discord.ButtonBuilder()
+                    let newBtn1 = new Discord.ButtonBuilder()
                         .setStyle(Discord.ButtonStyle.Primary)
                         .setLabel(`Option A (${res.percentage['1']})`)
                         .setCustomId(id1)
                         .setDisabled(true);
-                    btn2 = new Discord.ButtonBuilder()
+                    let newBtn2 = new Discord.ButtonBuilder()
                         .setStyle(Discord.ButtonStyle.Secondary)
                         .setLabel(`Option B (${res.percentage['2']})`)
                         .setCustomId(id2)
                         .setDisabled(true);
-                    collector.stop();
+
+                    let newRow = new Discord.ActionRowBuilder()
+                        .addComponents(newBtn1, newBtn2);
 
                     client.embed({
                         title: `🤔・Would you rather...`,
                         desc: `**A) ${decode(res.questions[0])} (${res.percentage['1']})** \nB) ${decode(res.questions[1])} (${res.percentage['2']})`,
-                        components: [{ type: 1, components: [btn, btn2] }],
+                        components: [newRow],
                         type: 'editreply'
-                    }, interaction)
+                    }, interaction);
+                    collector.stop();
                 } else if (btn.customId === id2) {
-                    btn = new Discord.ButtonBuilder()
+                    let newBtn1 = new Discord.ButtonBuilder()
                         .setStyle(Discord.ButtonStyle.Secondary)
                         .setLabel(`Option A (${res.percentage['1']})`)
                         .setCustomId(id1)
                         .setDisabled(true);
-                    btn2 = new Discord.ButtonBuilder()
+                    let newBtn2 = new Discord.ButtonBuilder()
                         .setStyle(Discord.ButtonStyle.Primary)
                         .setLabel(`Option B (${res.percentage['2']})`)
                         .setCustomId(id2)
                         .setDisabled(true);
-                    collector.stop();
+
+                    let newRow = new Discord.ActionRowBuilder()
+                        .addComponents(newBtn1, newBtn2);
 
                     client.embed({
                         title: `🤔・Would you rather...`,
                         desc: `A) ${decode(res.questions[0])} (${res.percentage['1']}) \n**B) ${decode(res.questions[1])} (${res.percentage['2']})**`,
-                        components: [{ type: 1, components: [btn, btn2] }],
+                        components: [newRow],
                         type: 'editreply'
-                    }, interaction)
+                    }, interaction);
+                    collector.stop();
                 }
             });
         });
     });
 }
-
- 

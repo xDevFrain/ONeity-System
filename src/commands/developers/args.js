@@ -23,11 +23,11 @@ module.exports = async (client, interaction, args) => {
                     },
                     {
                         name: `❓┆What can I do here?`,
-                        value: `- Meet new people! \n- Play many fun games! \n- Discover the seasons! \n- Participate in events! \nAnd…. Last but not least, choose your own roles at <#847867992044994561>!`,
+                        value: `- Meet new people! \n- Play many fun games! \n- Discover the seasons! \n- Participate in events! \n`,
                     },
                     {
                         name: `🎫┆How do I get help when needed?`,
-                        value: `You can make a ticket in <#820308164322656327>! We are happy to help you with your questions here and offer support in your server!`,
+                        value: `You can make a ticket in <#1162806686063529984>! We are happy to help you with your questions here!`,
                     },
                     {
                         name: `⚙️┆I want to help Bot Hangout to improve!`,
@@ -152,20 +152,16 @@ module.exports = async (client, interaction, args) => {
                         value: `Use stickers from other servers in our server`,
                     },
                     {
-                        name: `🔊┆Send TTS messages`,
-                        value: `Send messages that have a sound attached`,
+                        name: `🔊┆Send Voice messages`,
+                        value: `Send voice messages so that people can hear you.`,
                     },
                     {
-                        name: `🤔┆Access to the hidden lounge`,
-                        value: `Get access to a private lounge and chat with other boosters!`,
+                        name: `🤔┆Access to the couning channel & supports lounge`,
+                        value: `Get access to a private lounge and enjoy your time with other boosters!`,
                     },
                     {
                         name: `📛┆Change your nickname`,
                         value: `Change your name in the server. This is how you stand out in the server`,
-                    },
-                    {
-                        name: `💭┆Create public/private threads`,
-                        value: `Create a thread in our text channels`,
                     },
                     {
                         name: `🎉┆Private giveaways`,
@@ -176,38 +172,8 @@ module.exports = async (client, interaction, args) => {
                         value: `Send files in all channels where you can talk`,
                     },
                     {
-                        name: `📊┆Get access to a special promotional channel`,
-                        value: `Get the opportunity to promote your own server in a special channel`,
-                    },
-                    {
-                        name: `😜┆Custom role of your choice`,
-                        value: `Create your own role that you can set yourself`,
-                    },
-                    {
                         name: `💎┆Get the booster role + badge`,
                         value: `Stand out with a nice booster role and a booster badge!`,
-                    },
-                    {
-                        name: `💻┆Access to new bèta updates in Bot`,
-                        value: `We'll give your server access to updates that aren't out yet! How nice is that?`,
-                    }
-                ]
-            }, interaction.channel)
-        })
-    }
-
-    if (message == "links") {
-        client.simpleEmbed({
-            image: `https://media.discordapp.net/attachments/843487478881976381/881396544195149874/Bot_banner_boosters.jpg`
-        }, interaction.channel).then(() => {
-            client.embed({
-                title: `🔗・Links`,
-                thumbnail: client.user.avatarURL({ size: 1024 }),
-                desc: `_____ \n\nSee all the links from Bot Network!`,
-                fields: [
-                    {
-                        name: `▬▬│Servers│▬▬`,
-                        value: ``,
                     }
                 ]
             }, interaction.channel)
@@ -222,15 +188,11 @@ module.exports = async (client, interaction, args) => {
             fields: [
                 {
                     name: `🏆┆Levels`,
-                    value: `- Level 5   | <@&833307296699908097>\n- Level 10  | <@&833307450437664838>\n- Level 15  | <@&833307452279226379>\n- Level 30 | <@&915290300757458964>\n- Level 40 | <@&915290324480430080>`,
+                    value: `- TEXT LVL: 1 | VOICE LVL: 1  | <@&1162806492798406788>\n- TEXT LVL: 4 | VOICE LVL: 3  | <@&1162806491363946608>\n- TEXT LVL: 15 | VOICE LVL: 10  | <@&1162806490537672797>\n- TEXT LVL: 25 | VOICE LVL: 20 | <@&1162806489610723410>\n- TEXT LVL: 40 | VOICE LVL: 35 | <@&1162806488482447431>\n- TEXT LVL: 50 | VOICE LVL: 45 | <@&1162806485651308624>\n- TEXT LVL: 80 | VOICE LVL: 75 | <@&1162806484686610443>\n- TEXT LVL: 100 | VOICE LVL: 100 | <@&1162806483608678491>`,
                 },
                 {
                     name: `🥳┆Special`,
-                    value: `- 1 server vote | <@&833959913742794772>\n- 1 boost | <@&744208324022501447>\n- 1 donate | <@&849554599371210793>`,
-                },
-                {
-                    name: `💰┆Economy`,
-                    value: `- $10.000 | <@&890720270086733854>\n- $15.000 | <@&833936202725720084>\n- $20.000 | <@&833936185167839232> \n- $25.000 | <@&928236333309255711> \n- $30.000 | <@&928235747100733450>`,
+                    value: `- 1 boost | <@&1172315304324509746>\n- 1 donate | <@&1162806464646238220>`,
                 }
             ]
         }, interaction.channel)
@@ -243,23 +205,15 @@ module.exports = async (client, interaction, args) => {
             client.embed({
                 title: `🤖・Our bots`,
                 thumbnail: client.user.avatarURL({ size: 1024 }),
-                desc: `_____ \n\nOutside of a community we also maintain 2 public bots. These bots are all made to make your server better!`,
+                desc: `_____ \n\nThese bots are all made to make our server better and to improve your experience with us!`,
                 fields: [
                     {
                         name: `📘┆What is Bot?`,
-                        value: `Bot is a bot with which you can run your entire server! With no less than 400+ commands, we have a large bot with many options to improve your server! You know what else is beautiful? All of this is **FREE** to use!`,
-                    },
-                    {
-                        name: `🎶┆What is Bot 2?`,
-                        value: `Bot 2 was created for additional music. This way you never get in each other's way when someone is already listening to music. Furthermore, this bot contains a soundboard and a radio system`,
-                    },
-                    {
-                        name: `📨┆How do I invite the bots?`,
-                        value: `You can invite the bots by doing \`/invite\` or by clicking on the links below \n\n**Bot** - [Invite here](${client.config.discord.botInvite})`,
+                        value: `ONeity System Bot enhances member experience by offering quick support, automating tasks, and providing personalized recommendations, making interactions smoother and more efficient., we have a large bot with many options to improve your experience in our server!`,
                     },
                     {
                         name: `🎫┆How do I get help when needed?`,
-                        value: `You can make a ticket in <#820308164322656327>! We are happy to help you with your questions here and offer support in your server!`,
+                        value: `You can make a ticket in <#1162806686063529984>! We are happy to help you with your questions here!`,
                     }
                 ]
             }, interaction.channel)
