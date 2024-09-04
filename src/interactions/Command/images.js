@@ -19,18 +19,10 @@ module.exports = {
                 .setName('memes')
                 .setDescription('See all the memes in Bot')
                 .addSubcommand((subcommand) =>
-                    subcommand.setName('clyde').setDescription('Get a custom clyde message')
-                        .addStringOption(option => option.setName('text').setDescription('Enter a text').setRequired(true))
-
-                )
-                .addSubcommand((subcommand) =>
                     subcommand.setName('drake').setDescription('Create a drake meme')
                         .addStringOption(option => option.setName('text1').setDescription('Enter a text').setRequired(true))
                         .addStringOption(option => option.setName('text2').setDescription('Enter a text').setRequired(true)),
 
-                )
-                .addSubcommand((subcommand) =>
-                    subcommand.setName('meme').setDescription('Get a random meme'),
                 )
                 .addSubcommand((subcommand) =>
                     subcommand.setName('pooh').setDescription('Create a pooh meme')
@@ -127,66 +119,10 @@ module.exports = {
                 )
                 .addSubcommand((subcommand) =>
                     subcommand
-                        .setName('bed')
-                        .setDescription('Creates an bed meme')
-                        .addUserOption((option) =>
-                            option.setName('user').setDescription('The user you want to sleep with').setRequired(true),
-                        )
-                )
-                .addSubcommand((subcommand) =>
-                    subcommand
-                        .setName('blur')
-                        .setDescription('Gives an blurred image')
-                        .addUserOption((option) =>
-                            option.setName('user').setDescription('The user you want the blurred image from').setRequired(true),
-                        )
-                )
-                .addSubcommand((subcommand) =>
-                    subcommand
-                        .setName('burn')
-                        .setDescription('Gives an burned image')
-                        .addUserOption((option) =>
-                            option.setName('user').setDescription('The user you want the burned image from').setRequired(true),
-                        )
-                )
-                .addSubcommand((subcommand) =>
-                    subcommand
                         .setName('clown')
                         .setDescription('Generate a clown image')
                         .addUserOption((option) =>
                             option.setName('user').setDescription('The user you want make a clown').setRequired(true),
-                        )
-                )
-                .addSubcommand((subcommand) =>
-                    subcommand
-                        .setName('colorify')
-                        .setDescription('Generate a colorify image')
-                        .addUserOption((option) =>
-                            option.setName('user').setDescription('The user you want the colorified image from').setRequired(true),
-                        )
-                )
-                .addSubcommand((subcommand) =>
-                    subcommand
-                        .setName('darkness')
-                        .setDescription('Gives an darkness image')
-                        .addUserOption((option) =>
-                            option.setName('user').setDescription('The user you want the darkness image from').setRequired(true),
-                        )
-                )
-                .addSubcommand((subcommand) =>
-                    subcommand
-                        .setName('facepalm')
-                        .setDescription('Generate an facepalm image')
-                        .addUserOption((option) =>
-                            option.setName('user').setDescription('The user you want the facepalm image from').setRequired(true),
-                        )
-                )
-                .addSubcommand((subcommand) =>
-                    subcommand
-                        .setName('greyscale')
-                        .setDescription('Make an image more grey')
-                        .addUserOption((option) =>
-                            option.setName('user').setDescription('The user you want to make more gray').setRequired(true),
                         )
                 )
                 .addSubcommand((subcommand) =>
@@ -246,11 +182,6 @@ module.exports = {
                 .setDescription('See all the extra images in Bot')
                 .addSubcommand((subcommand) =>
                     subcommand
-                        .setName('car')
-                        .setDescription('Get a random car'),
-                )
-                .addSubcommand((subcommand) =>
-                    subcommand
                         .setName('glass')
                         .setDescription('Overlays a glass texture over an image'),
                 )
@@ -263,10 +194,6 @@ module.exports = {
                     subcommand
                         .setName('triggered')
                         .setDescription('Trigger yourself'),
-                )
-                .addSubcommand((subcommand) =>
-                    subcommand.setName('wallpaper').setDescription('Returns a wallpaper from HDQWalls')
-                        .addStringOption(option => option.setName('name').setDescription('Enter a name').setRequired(true))
                 )
         ),
 

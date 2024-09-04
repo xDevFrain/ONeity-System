@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-
 const Schema = require("../../database/models/invites");
 
 module.exports = async (client, interaction, args) => {
@@ -9,18 +8,18 @@ module.exports = async (client, interaction, args) => {
     const perms = await client.checkUserPerms({
         flags: [Discord.PermissionsBitField.Flags.ManageMessages],
         perms: [Discord.PermissionsBitField.Flags.ManageMessages]
-    }, interaction)
+    }, interaction);
 
     if (perms == false) return;
 
     const data = await Schema.findOne({ Guild: interaction.guild.id, User: user.id });
+
     if (data) {
         data.Invites += amount;
         data.Total += amount;
-        data.save();
-    }
-    else {
-        new Schema({
+        await data.save();
+    } else {
+        await new Schema({
             Guild: interaction.guild.id,
             User: user.id,
             Invites: amount,
@@ -34,12 +33,10 @@ module.exports = async (client, interaction, args) => {
         fields: [
             {
                 name: "📨┆Total invites",
-                value: `${data.Invites}`,
+                value: `${data ? data.Invites : amount}`, // عرض إجمالي الدعوات بشكل صحيح
                 inline: true,
             }
         ],
         type: 'editreply'
     }, interaction);
 }
-
- 
