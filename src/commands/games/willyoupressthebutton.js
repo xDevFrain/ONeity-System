@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const { truncate } = require('fs/promises');
 const { decode } = require('html-entities');
 const fetch = require("node-fetch");
 
@@ -32,9 +31,17 @@ module.exports = async (client, interaction, args) => {
         '-' +
         getRandomString(20);
 
-    fetch('https://api2.willyoupressthebutton.com/api/v2/dilemma ', {
-        method: 'POST',
-    }).then((data) => data.json()).then((data) => {
+    try {
+        const response = await fetch('https://api2.willyoupressthebutton.com/api/v2/dilemma', {
+            method: 'POST',
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
         const res = {
             questions: [data.dilemma.txt1, data.dilemma.txt2],
             percentage: {
@@ -108,7 +115,12 @@ module.exports = async (client, interaction, args) => {
                 }
             });
         });
-    });
+    } catch (error) {
+        console.error('Error fetching dilemma:', error);
+        client.simpleEmbed({ 
+            title: `⚠️ Error`,
+            desc: `There was an error trying to fetch the dilemma. Please try again later.`,
+            type: 'editreply'
+        }, interaction);
+    }
 }
-
- 
