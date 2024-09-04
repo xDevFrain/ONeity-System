@@ -12,7 +12,7 @@ module.exports = async (client, interaction, args) => {
             }, interaction);
         });
 
-        const keywords = r.keywords && r.keywords.length > 0 ? r.keywords.join(', ') : 'None';
+        const keywords = Array.isArray(r.keywords) && r.keywords.length > 0 ? r.keywords.join(', ') : 'None';
         
         client.embed({
             title: `📁・${r.name}`,
