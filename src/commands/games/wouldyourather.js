@@ -8,23 +8,31 @@ module.exports = async (client, interaction, args) => {
         const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         let result = '';
         for (let i = 0; i < length; i++) {
-            result += randomChars.charAt(
-                Math.floor(Math.random() * randomChars.length),
-            );
+            result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
         }
         return result;
     };
 
     const fetchhtml = async (url) => {
         const options = {
-            header: {
-                'user-agent':
-                    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+            headers: {
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
                 referer: 'https://www.google.com/',
             },
+            timeout: 10000 // زيادة المهلة الزمنية إلى 10 ثواني
         };
-        const html = await axios.get(url, options);
-        return cheerio.load(html.data);
+
+        try {
+            const response = await axios.get(url, options);
+            return cheerio.load(response.data);
+        } catch (error) {
+            console.error(`Failed to fetch data: ${error.message}`);
+            client.simpleEmbed({ 
+                title: '❌┆Error fetching data',
+                type: 'editreply'
+            }, interaction);
+            return null;
+        }
     };
 
     client.simpleEmbed({ 
@@ -32,24 +40,11 @@ module.exports = async (client, interaction, args) => {
         type: 'editreply'
     }, interaction).then(async msg => {
 
-        const id1 =
-            getRandomString(20) +
-            '-' +
-            getRandomString(20) +
-            '-' +
-            getRandomString(20) +
-            '-' +
-            getRandomString(20);
-        const id2 =
-            getRandomString(20) +
-            '-' +
-            getRandomString(20) +
-            '-' +
-            getRandomString(20) +
-            '-' +
-            getRandomString(20);
+        const id1 = getRandomString(20) + '-' + getRandomString(20) + '-' + getRandomString(20) + '-' + getRandomString(20);
+        const id2 = getRandomString(20) + '-' + getRandomString(20) + '-' + getRandomString(20) + '-' + getRandomString(20);
 
         const $ = await fetchhtml('http://either.io');
+        if (!$) return; // إذا فشل الجلب، أخرج من الدالة
 
         const blue = $('div.result.result-1').children();
         const red = $('div.result.result-2').children();
@@ -104,7 +99,7 @@ module.exports = async (client, interaction, args) => {
                         desc: `**A) ${decode(res.questions[0])} (${res.percentage['1']})** \nB) ${decode(res.questions[1])} (${res.percentage['2']})`,
                         components: [{ type: 1, components: [btn, btn2] }],
                         type: 'editreply'
-                    }, interaction)
+                    }, interaction);
                 } else if (btn.customId === id2) {
                     btn = new Discord.ButtonBuilder()
                         .setStyle(Discord.ButtonStyle.Secondary)
@@ -123,11 +118,9 @@ module.exports = async (client, interaction, args) => {
                         desc: `A) ${decode(res.questions[0])} (${res.percentage['1']}) \n**B) ${decode(res.questions[1])} (${res.percentage['2']})**`,
                         components: [{ type: 1, components: [btn, btn2] }],
                         type: 'editreply'
-                    }, interaction)
+                    }, interaction);
                 }
             });
         });
     });
 }
-
- 
