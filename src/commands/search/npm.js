@@ -1,35 +1,42 @@
 const Discord = require('discord.js');
-const pop = require("popcat-wrapper");
+const fetch = require('node-fetch');
 
 module.exports = async (client, interaction, args) => {
     try {
-        const name = interaction.options.getString('name');
-        
-        const r = await pop.npm(name).catch(e => {
-            return client.errNormal({ 
+        const packageName = interaction.options.getString('name');
+
+        const response = await fetch(`https://registry.npmjs.org/${packageName}`);
+        if (!response.ok) {
+            return client.errNormal({
                 error: "Package not found!",
                 type: 'editreply'
             }, interaction);
-        });
-
-        const keywords = Array.isArray(r.keywords) && r.keywords.length > 0 ? r.keywords.join(', ') : 'None';
+        }
         
+        const data = await response.json();
+        const latestVersion = data['dist-tags'].latest;
+        const packageInfo = data.versions[latestVersion];
+
+        const keywords = Array.isArray(packageInfo.keywords) && packageInfo.keywords.length > 0 
+            ? packageInfo.keywords.join(', ') 
+            : 'None';
+
         client.embed({
-            title: `📁・${r.name}`,
+            title: `📁・${packageInfo.name}`,
             fields: [
                 {
                     name: "💬┇Name",
-                    value: r.name || 'N/A',
+                    value: packageInfo.name || 'N/A',
                     inline: true,
                 },
                 {
                     name: "🏷️┇Version",
-                    value: r.version || 'N/A',
+                    value: latestVersion || 'N/A',
                     inline: true,
                 },
                 {
                     name: "📃┇Description",
-                    value: r.description || 'No description available.',
+                    value: packageInfo.description || 'No description available.',
                     inline: true,
                 },
                 {
@@ -39,17 +46,12 @@ module.exports = async (client, interaction, args) => {
                 },
                 {
                     name: "💻┇Author",
-                    value: r.author || 'Unknown',
-                    inline: true,
-                },
-                {
-                    name: "📁┇Downloads (This Year)",
-                    value: r.downloads_this_year ? r.downloads_this_year.toLocaleString() : 'N/A',
+                    value: packageInfo.author ? packageInfo.author.name : 'Unknown',
                     inline: true,
                 },
                 {
                     name: "⏰┇Last Publish",
-                    value: r.last_published ? `<t:${Math.round(new Date(r.last_published).getTime() / 1000)}>` : 'N/A',
+                    value: packageInfo.time ? `<t:${Math.round(new Date(data.time[latestVersion]).getTime() / 1000)}>` : 'N/A',
                     inline: true,
                 },
             ],
