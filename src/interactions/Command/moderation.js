@@ -129,9 +129,14 @@ module.exports = {
      */
 
     run: async (client, interaction, args) => {
-        await interaction.deferReply({ fetchReply: true });
-        client.loadSubcommands(client, interaction, args);
+        try {
+            await interaction.deferReply({ fetchReply: true });  // تأخير الرد في أقرب وقت
+            client.loadSubcommands(client, interaction, args);
+        } catch (error) {
+            console.error('Error while executing the command:', error);
+            if (!interaction.replied) {
+                await interaction.reply({ content: 'An error occurred while executing the command.', ephemeral: true });
+            }
+        }
     },
 };
-
- 
