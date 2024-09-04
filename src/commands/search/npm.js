@@ -50,6 +50,11 @@ module.exports = async (client, interaction, args) => {
                     inline: true,
                 },
                 {
+                    name: "📁┇Downloads",
+                    value: `${r.downloads_this_year}`,
+                    inline: true,
+                },
+                {
                     name: "⏰┇Last Publish",
                     value: packageInfo.time ? `<t:${Math.round(new Date(data.time[latestVersion]).getTime() / 1000)}>` : 'N/A',
                     inline: true,
