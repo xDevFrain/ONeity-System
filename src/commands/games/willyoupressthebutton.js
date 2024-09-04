@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 const { decode } = require('html-entities');
-const axios = require('axios');
-const cheerio = require('cheerio');
+const fetch = require("node-fetch");
 
 module.exports = async (client, interaction, args) => {
     const getRandomString = (length) => {
@@ -33,23 +32,21 @@ module.exports = async (client, interaction, args) => {
         getRandomString(20);
 
     try {
-        // استخدام Axios لجلب الصفحة
-        const response = await axios.get('https://willyoupressthebutton.com'); // استبدل هذا بالرابط الصحيح
+        const response = await fetch('https://api2.willyoupressthebutton.com/api/v2/dilemma', {
+            method: 'POST',
+        });
 
-        // استخدام Cheerio لتحليل HTML
-        const $ = cheerio.load(response.data);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
-        // جلب الأسئلة والخيارات من HTML
-        const question1 = $('.dilemma-question h1').text(); // استبدل selector بالـ HTML الصحيح
-        const question2 = $('.dilemma-details p').text(); // استبدل selector بالـ HTML الصحيح
-        const yesPercentage = $('.dilemma-details p').text(); // استبدل selector بالـ HTML الصحيح
-        const noPercentage = $('.dilemma-results .no-percentage').text(); // استبدل selector بالـ HTML الصحيح
+        const data = await response.json();
 
         const res = {
-            questions: [question1, question2],
+            questions: [data.dilemma.txt1, data.dilemma.txt2],
             percentage: {
-                1: yesPercentage,
-                2: noPercentage,
+                1: data.dilemma.yes,
+                2: data.dilemma.no,
             },
         };
 
