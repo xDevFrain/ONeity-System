@@ -36,12 +36,6 @@ module.exports = {
                 .addStringOption(option => option.setName('name').setDescription('Your search name').setRequired(true))
         )
         .addSubcommand(subcommand =>
-            subcommand
-                .setName('corona')
-                .setDescription('See the corona stats')
-                .addStringOption(option => option.setName('country').setDescription('Enter a country').setRequired(true))
-        )
-        .addSubcommand(subcommand =>
             subcommand 
                 .setName('crypto')
                 .setDescription('See the value of the crypto coin')
