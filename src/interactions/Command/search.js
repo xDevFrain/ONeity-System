@@ -74,12 +74,6 @@ module.exports = {
         )
         .addSubcommand(subcommand =>
             subcommand
-                .setName('steam')
-                .setDescription('Get info on an application on Steam')
-                .addStringOption(option => option.setName('name').setDescription('Enter a Steam application name').setRequired(true))
-        )
-        .addSubcommand(subcommand =>
-            subcommand
                 .setName('translate')
                 .setDescription('Translate some text')
                 .addStringOption(option => option.setName('language').setDescription('Enter a language').setRequired(true))
