@@ -19,6 +19,7 @@ module.exports = {
         const toUpperCase = (string) => string.charAt(0).toUpperCase() + string.slice(1);
         const commad = (name) => {
             const mentions = client.getSlashMentions(name); // array of [mention, description]
+            if (!mentions || mentions.length === 0) return "No commands available.";
             return mentions.map(cmd => `${cmd[0]} - \`${cmd[1]}\``).join("\n");
         }
 
@@ -89,7 +90,6 @@ module.exports = {
                     inline: true
                 },
             ])
-
 
         let startButton = new ButtonBuilder().setStyle(2).setEmoji(`⏮️`).setCustomId('start'),
             backButton = new ButtonBuilder().setStyle(2).setEmoji(`⬅️`).setCustomId('back'),
@@ -187,8 +187,20 @@ module.exports = {
             }
         });
 
-        collector.on('end', b => {
-            b.update({ embeds: [helpMessage.embeds[0]], content: [], components: [] })
+        collector.on('end', collected => {
+            if (collected.size > 0) {
+                helpMessage.edit({
+                    embeds: [helpMessage.embeds[0]],
+                    content: 'The help session has ended.',
+                    components: []
+                });
+            } else {
+                helpMessage.edit({
+                    embeds: [helpMessage.embeds[0]],
+                    content: 'The help session has ended with no interactions.',
+                    components: []
+                });
+            }
         });
 
         collector.on('error', (e) => console.log(e));
