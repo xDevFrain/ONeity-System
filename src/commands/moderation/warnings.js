@@ -32,7 +32,7 @@ module.exports = async (client, interaction, args) => {
             }, interaction);
         }
 
-        if (data) {
+        if (data && data.Warnings.length > 0) {
             const fields = data.Warnings.map(element => ({
                 name: `Warning **${element.Case}**`,
                 value: `Reason: ${element.Reason}\nModerator: <@${element.Moderator}>`,
