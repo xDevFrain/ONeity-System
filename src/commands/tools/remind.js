@@ -3,11 +3,15 @@ const Schema = require("../../database/models/reminder");
 const ms = require("ms");
 
 module.exports = async (client, interaction, args) => {
-
     const time = interaction.options.getString('time');
     const text = interaction.options.getString('message');
 
-    const endtime = new Date().getTime() + ms(time);
+    const timeInMs = ms(time);
+    if (!timeInMs) {
+        return client.errNormal({ error: "Invalid time format!", type: 'editreply' }, interaction);
+    }
+
+    const endtime = new Date().getTime() + timeInMs;
 
     Schema.findOne({ Text: text, User: interaction.user.id, endTime: endtime }, async (err, data) => {
         if (data) {
@@ -18,7 +22,7 @@ module.exports = async (client, interaction, args) => {
                 text: `Your reminder is set!`,
                 fields: [{
                     name: `${client.emotes.normal.clock}┇End Time`,
-                    value: `${new Date(endtime).toLocaleTimeString()}`,
+                    value: `${new Date(endtime).toLocaleString()}`, // استخدام toLocaleString للحصول على التاريخ والوقت
                     inline: true,
                 },
                 {
@@ -30,10 +34,9 @@ module.exports = async (client, interaction, args) => {
                 type: 'editreply'
             }, interaction);
         }
-    })
+    });
 
     setTimeout(async () => {
-
         client.embed({
             title: `🔔・Reminder`,
             desc: `Your reminder just ended!`,
@@ -46,9 +49,6 @@ module.exports = async (client, interaction, args) => {
             ],
         }, interaction.user);
 
-        let deleted = await Schema.findOneAndDelete({ Text: text, User: interaction.user.id, endTime: endtime });
+        await Schema.findOneAndDelete({ Text: text, User: interaction.user.id, endTime: endtime });
     }, endtime - new Date().getTime());
-
-}
-
- 
+};
