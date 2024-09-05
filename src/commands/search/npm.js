@@ -61,13 +61,13 @@ module.exports = async (client, interaction, args) => {
                     inline: true,
                 },
                 {
-                    name: "📁┇Downloads (Last Year)",
-                    value: `${downloadsCount}`,
+                    name: "⏰┇Last Publish",
+                    value: packageInfo.time ? `<t:${Math.round(new Date(data.time[latestVersion]).getTime() / 1000)}>` : 'N/A',
                     inline: true,
                 },
                 {
-                    name: "⏰┇Last Publish",
-                    value: lastPublishTime ? `<t:${Math.round(new Date(lastPublishTime).getTime() / 1000)}:F>` : 'N/A',
+                    name: "📁┇Downloads (Last Year)",
+                    value: `${downloadsCount}`,
                     inline: true,
                 },
             ],
