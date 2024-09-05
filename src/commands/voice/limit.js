@@ -6,26 +6,32 @@ module.exports = async (client, interaction, args) => {
         perms: [Discord.PermissionsBitField.Flags.ManageChannels]
     }, interaction)
 
-    if (perms == false) return;
+    if (!perms) return;
 
     let limit = interaction.options.getNumber('limit');
 
     const channel = interaction.member.voice.channel;
-    if (!channel) return client.errNormal({
-        error: `You're not in a voice channel!`,
-        type: 'editreply'
-    }, interaction);
+    if (!channel) {
+        return client.errNormal({
+            error: `You're not in a voice channel!`,
+            type: 'editreply'
+        }, interaction);
+    }
+
     var checkVoice = await client.checkVoice(interaction.guild, channel);
+    
     if (!checkVoice) {
+        console.log(`Failed checkVoice for channel: ${channel.name} (ID: ${channel.id})`);
         return client.errNormal({
             error: `You cannot edit this channel!`,
             type: 'editreply'
         }, interaction);
-    } else {
-        channel.setUserLimit(limit);
+    } 
 
+    try {
+        await channel.setUserLimit(limit);
         client.succNormal({
-            text: `The channel limit was to \`${limit}\`!`,
+            text: `The channel limit was set to \`${limit}\`!`,
             fields: [
                 {
                     name: `📘┆Channel`,
@@ -34,6 +40,11 @@ module.exports = async (client, interaction, args) => {
             ],
             type: 'editreply'
         }, interaction);
+    } catch (error) {
+        console.error(`Failed to set user limit for channel: ${channel.name} (ID: ${channel.id})`, error);
+        return client.errNormal({
+            error: `There was an error editing the channel!`,
+            type: 'editreply'
+        }, interaction);
     }
 }
-
