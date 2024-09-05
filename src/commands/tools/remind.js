@@ -6,6 +6,8 @@ module.exports = async (client, interaction, args) => {
     const time = interaction.options.getString('time');
     const text = interaction.options.getString('message');
 
+    await interaction.deferReply({ ephemeral: true });
+
     const timeInMs = ms(time);
     if (!timeInMs || timeInMs <= 0) {
         return client.errNormal({ 
