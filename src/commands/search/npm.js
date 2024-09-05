@@ -57,7 +57,7 @@ module.exports = async (client, interaction, args) => {
                 },
                 {
                     name: "💻┇Author",
-                    value: '${r.author}',
+                    value: packageInfo.author ? packageInfo.author.name : 'Unknown',
                     inline: true,
                 },
                 {
