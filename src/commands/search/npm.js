@@ -57,7 +57,7 @@ module.exports = async (client, interaction, args) => {
                 },
                 {
                     name: "💻┇Author",
-                    value: 'author',
+                    value: '${r.author}',
                     inline: true,
                 },
                 {
