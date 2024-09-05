@@ -12,25 +12,30 @@ module.exports = async (client, interaction, args) => {
     }
 
     await interaction.deferReply();
+    console.log("Interaction deferred successfully.");
 
     ticketChannels.findOne({ Guild: interaction.guild.id, channelID: interaction.channel.id }, async (err, ticketData) => {
         if (err) {
-            console.error(err);
+            console.error("Error fetching ticket channels data:", err);
             return client.errNormal({
                 error: "An error occurred while fetching ticket data.",
                 type: 'editreply'
             }, interaction);
         }
 
+        console.log("ticketData:", ticketData);
+
         if (ticketData) {
             ticketSchema.findOne({ Guild: interaction.guild.id }, async (err, data) => {
                 if (err) {
-                    console.error(err);
+                    console.error("Error fetching ticket schema:", err);
                     return client.errNormal({
                         error: "An error occurred while fetching ticket schema.",
                         type: 'editreply'
                     }, interaction);
                 }
+
+                console.log("ticketSchema data:", data);
 
                 if (data) {
                     const ticketCategory = interaction.guild.channels.cache.get(data.Category);
@@ -49,7 +54,9 @@ module.exports = async (client, interaction, args) => {
                         }, interaction);
 
                         try {
+                            console.log("Generating transcript...");
                             await client.transcript(interaction, interaction.channel);
+                            console.log("Transcript generated successfully.");
 
                             return client.embed({
                                 title: `ℹ・Information`,
@@ -83,7 +90,7 @@ module.exports = async (client, interaction, args) => {
                                 type: 'editreply'
                             }, msg);
                         } catch (error) {
-                            console.error(error);
+                            console.error("Error generating transcript:", error);
                             return client.errNormal({
                                 error: "An error occurred while generating the transcript.",
                                 type: 'editreply'
@@ -97,6 +104,7 @@ module.exports = async (client, interaction, args) => {
                         }, interaction);
                     }
                 } else {
+                    console.log("No ticket schema data found.");
                     return client.errNormal({
                         error: "Do the setup!",
                         type: 'editreply'
@@ -104,6 +112,7 @@ module.exports = async (client, interaction, args) => {
                 }
             });
         } else {
+            console.log("No ticket data found for the current channel.");
             client.errNormal({
                 error: "This is not a ticket!",
                 type: 'editreply'
