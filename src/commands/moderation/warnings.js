@@ -7,6 +7,8 @@ module.exports = async (client, interaction, args) => {
         perms: [Discord.PermissionsBitField.Flags.ManageMessages]
     }, interaction);
 
+    console.log(`Permissions check result: ${perms}`);
+
     if (!perms) {
         return client.errNormal({
             error: "You don't have the required permissions to use this command!",
