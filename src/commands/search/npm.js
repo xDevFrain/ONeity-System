@@ -30,6 +30,8 @@ module.exports = async (client, interaction, args) => {
             } else if (packageInfo.author.name) {
                 author = packageInfo.author.name;
             }
+        } else if (Array.isArray(data.maintainers) && data.maintainers.length > 0) {
+            author = data.maintainers.map(maintainer => maintainer.name).join(', ');
         }
 
         const lastPublishTime = data.time && data.time[latestVersion] 
