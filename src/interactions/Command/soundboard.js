@@ -192,11 +192,6 @@ module.exports = {
                 )
                 .addSubcommand((subcommand) =>
                     subcommand
-                        .setName('shotdown')
-                        .setDescription('Play the shotdown sound'),
-                )
-                .addSubcommand((subcommand) =>
-                    subcommand
                         .setName('spongebob')
                         .setDescription('Play the spongebob sound'),
                 )
