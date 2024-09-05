@@ -4,7 +4,13 @@ const ticketChannels = require("../../database/models/ticketChannels");
 
 module.exports = async (client, interaction, args) => {
 
-    // تأجيل الرد لتجنب انتهاء المهلة
+    if (interaction.replied || interaction.deferred) {
+        return client.errNormal({
+            error: "This interaction has already been replied to!",
+            type: 'ephemeral'
+        }, interaction);
+    }
+
     await interaction.deferReply();
 
     ticketChannels.findOne({ Guild: interaction.guild.id, channelID: interaction.channel.id }, async (err, ticketData) => {
@@ -37,54 +43,52 @@ module.exports = async (client, interaction, args) => {
                     }
 
                     if (interaction.channel.parentId === ticketCategory.id) {
-
-                        client.embed({
+                        const msg = await client.embed({
                             desc: `${client.emotes.animated.loading}・Loading information...`,
                             type: 'editreply'
-                        }, interaction).then(async (msg) => {
+                        }, interaction);
 
-                            try {
-                                await client.transcript(interaction, interaction.channel);
+                        try {
+                            await client.transcript(interaction, interaction.channel);
 
-                                return client.embed({
-                                    title: `ℹ・Information`,
-                                    fields: [
-                                        {
-                                            name: "Ticket name",
-                                            value: `\`${interaction.channel.name}\``,
-                                            inline: true,
-                                        },
-                                        {
-                                            name: "Channel id",
-                                            value: `\`${interaction.channel.id}\``,
-                                            inline: true,
-                                        },
-                                        {
-                                            name: "Creator",
-                                            value: `<@!${ticketData.creator}>`,
-                                            inline: true,
-                                        },
-                                        {
-                                            name: "Claimed by",
-                                            value: ticketData.claimed ? `<@!${ticketData.claimed}>` : "Unclaimed",
-                                            inline: true,
-                                        },
-                                        {
-                                            name: "Ticket id",
-                                            value: `${ticketData.TicketID}`,
-                                            inline: true,
-                                        },
-                                    ],
-                                    type: 'editreply'
-                                }, msg);
-                            } catch (error) {
-                                console.error(error);
-                                return client.errNormal({
-                                    error: "An error occurred while generating the transcript.",
-                                    type: 'editreply'
-                                }, interaction);
-                            }
-                        });
+                            return client.embed({
+                                title: `ℹ・Information`,
+                                fields: [
+                                    {
+                                        name: "Ticket name",
+                                        value: `\`${interaction.channel.name}\``,
+                                        inline: true,
+                                    },
+                                    {
+                                        name: "Channel id",
+                                        value: `\`${interaction.channel.id}\``,
+                                        inline: true,
+                                    },
+                                    {
+                                        name: "Creator",
+                                        value: `<@!${ticketData.creator}>`,
+                                        inline: true,
+                                    },
+                                    {
+                                        name: "Claimed by",
+                                        value: ticketData.claimed ? `<@!${ticketData.claimed}>` : "Unclaimed",
+                                        inline: true,
+                                    },
+                                    {
+                                        name: "Ticket id",
+                                        value: `${ticketData.TicketID}`,
+                                        inline: true,
+                                    },
+                                ],
+                                type: 'editreply'
+                            }, msg);
+                        } catch (error) {
+                            console.error(error);
+                            return client.errNormal({
+                                error: "An error occurred while generating the transcript.",
+                                type: 'editreply'
+                            }, interaction);
+                        }
 
                     } else {
                         client.errNormal({
