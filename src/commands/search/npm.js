@@ -11,9 +11,12 @@ module.exports = async (client, interaction, args) => {
 
         const response = await fetch(`https://registry.npmjs.org/${packageName}`);
         if (!response.ok) {
-            return await interaction.editReply({
-                content: "Package not found!"
-            });
+            if (!interaction.replied) {
+                return await interaction.editReply({
+                    content: "Package not found!"
+                });
+            }
+            return;
         }
 
         const data = await response.json();
@@ -35,9 +38,12 @@ module.exports = async (client, interaction, args) => {
 
         const downloadsResponse = await fetch(`https://api.npmjs.org/downloads/point/last-year/${packageName}`);
         if (!downloadsResponse.ok) {
-            return await interaction.editReply({
-                content: "Unable to fetch download statistics!"
-            });
+            if (!interaction.replied) {
+                return await interaction.editReply({
+                    content: "Unable to fetch download statistics!"
+                });
+            }
+            return;
         }
 
         const downloadsData = await downloadsResponse.json();
@@ -59,17 +65,14 @@ module.exports = async (client, interaction, args) => {
                 { name: "📁┇Downloads (Last Year)", value: downloadsCount, inline: true },
             );
 
-        await interaction.editReply({ embeds: [embed] });
+        if (!interaction.replied) {
+            await interaction.editReply({ embeds: [embed] });
+        }
     } catch (error) {
-        if (interaction.replied || interaction.deferred) {
+        if (!interaction.replied) {
             await interaction.editReply({
                 content: `An error occurred: ${error.message}`
             });
-        } else {
-            await interaction.reply({
-                content: `An error occurred: ${error.message}`,
-                ephemeral: true
-            });
         }
     }
-}
+};
