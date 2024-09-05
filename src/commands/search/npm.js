@@ -61,8 +61,8 @@ module.exports = async (client, interaction, args) => {
                     inline: true,
                 },
                 {
-                    name: "📁┇Downloads",
-                    value: `${r.downloads_this_year}`,
+                    name: "📁┇Downloads (Last Year)",
+                    value: `${downloadsCount}`,
                     inline: true,
                 },
                 {
