@@ -3,7 +3,9 @@ const fetch = require('node-fetch');
 
 module.exports = async (client, interaction, args) => {
     try {
-        await interaction.deferReply({ ephemeral: true });
+        if (!interaction.deferred && !interaction.replied) {
+            await interaction.deferReply({ ephemeral: true });
+        }
 
         const packageName = interaction.options.getString('name');
 
