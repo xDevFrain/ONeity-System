@@ -2,14 +2,7 @@ const Discord = require('discord.js');
 const Schema = require("../../database/models/warnings");
 
 module.exports = async (client, interaction, args) => {
-    const perms = await client.checkUserPerms({
-        flags: [Discord.PermissionsBitField.Flags.ManageMessages],
-        perms: [Discord.PermissionsBitField.Flags.ManageMessages]
-    }, interaction);
-
-    console.log(`Permissions check result: ${perms}`);
-
-    if (!perms) {
+    if (!interaction.member.permissions.has(Discord.PermissionsBitField.Flags.ManageMessages)) {
         return client.errNormal({
             error: "You don't have the required permissions to use this command!",
             type: 'editreply'
