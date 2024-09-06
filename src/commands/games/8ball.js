@@ -6,27 +6,27 @@ const openai = new OpenAI({
 });
 
 module.exports = async (client, interaction, args) => {
-    if (!interaction.deferred && !interaction.replied) {
-        await interaction.deferReply();
-    }
-
-    const question = interaction.options.getString('question');
-
-    if (!question) {
-        if (!interaction.deferred && !interaction.replied) {
-            return interaction.reply({
-                content: "Please provide a question for the 8ball.",
-                ephemeral: true
-            });
-        } else {
-            return interaction.editReply({
-                content: "Please provide a question for the 8ball.",
-                ephemeral: true
-            });
-        }
-    }
-
     try {
+        if (!interaction.deferred && !interaction.replied) {
+            await interaction.deferReply();
+        }
+
+        const question = interaction.options.getString('question');
+
+        if (!question) {
+            if (interaction.deferred) {
+                return interaction.editReply({
+                    content: "Please provide a question for the 8ball.",
+                    ephemeral: true
+                });
+            } else {
+                return interaction.reply({
+                    content: "Please provide a question for the 8ball.",
+                    ephemeral: true
+                });
+            }
+        }
+
         const gptResponse = await openai.completions.create({
             model: "gpt-4",
             prompt: `You are an 8ball game. Respond to this question with a fun but mysterious answer: "${question}"`,
@@ -46,14 +46,14 @@ module.exports = async (client, interaction, args) => {
             .setFooter({ text: "Enjoy your fortune!", iconURL: client.user.displayAvatarURL() })
             .setTimestamp();
 
-        if (interaction.replied) {
+        if (interaction.deferred) {
             await interaction.editReply({ embeds: [embed] });
         } else {
             await interaction.reply({ embeds: [embed] });
         }
     } catch (error) {
         console.error(error);
-        if (interaction.replied) {
+        if (interaction.deferred || interaction.replied) {
             await interaction.editReply({
                 content: "There was an issue fetching the answer. Please try again later!",
                 ephemeral: true
