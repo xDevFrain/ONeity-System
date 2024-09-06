@@ -52,7 +52,7 @@ module.exports = async (client, interaction, args) => {
             await interaction.reply({ embeds: [embed] });
         }
     } catch (error) {
-        console.error(error);
+        console.error('Error fetching the answer:', error);
         if (interaction.deferred || interaction.replied) {
             await interaction.editReply({
                 content: "There was an issue fetching the answer. Please try again later!",
