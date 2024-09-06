@@ -19,11 +19,6 @@ console.log(chalk.blue(chalk.bold(`System`)), (chalk.white(`>>`)), (chalk.green(
 console.log(`\u001b[0m`)
 console.log(chalk.blue(chalk.bold(`System`)), (chalk.white(`>>`)), chalk.red(`Version ${require(`${process.cwd()}/package.json`).version}`), (chalk.green(`loaded`)))
 console.log(`\u001b[0m`);
-app.get("/", (req, res) => {
-    res.setHeader('Content-Type', 'text/html');
-    res.send(`<iframe style="margin: 0; padding: 0;" width="100%" height="100%" src="https://uoaio.vercel.app/" frameborder="0" allowfullscreen></iframe>`);
-    res.end()
-});
 app.listen(3000, () => console.log(chalk.blue(chalk.bold(`Server`)), (chalk.white(`>>`)), (chalk.green(`Running on`)), (chalk.red(`3000`))))
 require('./bot')
 
