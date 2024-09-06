@@ -29,7 +29,7 @@ module.exports = async (client, interaction, args) => {
         .setDescription(`Here is your answer!`)
         .addFields([
             { name: `❓┇Your Question`, value: `\`\`\`${question}\`\`\``, inline: false },
-            { name: `🎱┇Magic Ball's Answer`, value: `\`\`\`${answer[resultaat]}\`\`\``, inline: false }
+            { name: `🎱┇Magic Ball's Answer`, value: `\`\`\`${answer}\`\`\``, inline: false }
         ])
         .setFooter({ text: "Enjoy your fortune!", iconURL: client.user.displayAvatarURL() })
         .setTimestamp();
