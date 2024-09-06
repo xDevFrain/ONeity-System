@@ -132,43 +132,49 @@ fs.readdirSync('./src/handlers').forEach((dir) => {
 
 client.login(process.env.DISCORD_TOKEN);
 
-// Handle unhandled rejections
 process.on('unhandledRejection', error => {
     console.error('Unhandled promise rejection:', error);
-    if (error.length > 950) error = error.slice(0, 950) + '... view console for details';
-    if (error.stack && error.stack.length > 950) error.stack = error.stack.slice(0, 950) + '... view console for details';
-    if (!error.stack) return;
-    
+    if (error) if (error.length > 950) error = error.slice(0, 950) + '... view console for details';
+    if (error.stack) if (error.stack.length > 950) error.stack = error.stack.slice(0, 950) + '... view console for details';
+    if (!error.stack) return
     const embed = new Discord.EmbedBuilder()
         .setTitle(`🚨・Unhandled promise rejection`)
         .addFields([
-            { name: "Error", value: Discord.codeBlock(error) },
-            { name: "Stack error", value: error.stack ? Discord.codeBlock(error.stack) : "No stack error" }
+            {
+                name: "Error",
+                value: error ? Discord.codeBlock(error) : "No error",
+            },
+            {
+                name: "Stack error",
+                value: error.stack ? Discord.codeBlock(error.stack) : "No stack error",
+            }
         ])
-        .setColor(client.config.colors.normal);
-    
+        .setColor(client.config.colors.normal)
     consoleLogs.send({
         username: 'Bot Logs',
         embeds: [embed],
     }).catch(() => {
-        console.log('Error sending unhandledRejection to webhook');
-        console.log(error);
-    });
+        console.log('Error sending unhandledRejection to webhook')
+        console.log(error)
+    })
 });
 
-// Handle warnings
 process.on('warning', warn => {
     console.warn("Warning:", warn);
     const embed = new Discord.EmbedBuilder()
         .setTitle(`🚨・New warning found`)
-        .addFields([{ name: `Warn`, value: `\`\`\`${warn}\`\`\`` }])
-        .setColor(client.config.colors.normal);
-    
+        .addFields([
+            {
+                name: `Warn`,
+                value: `\`\`\`${warn}\`\`\``,
+            },
+        ])
+        .setColor(client.config.colors.normal)
     warnLogs.send({
         username: 'Bot Logs',
         embeds: [embed],
     }).catch(() => {
-        console.log('Error sending warning to webhook');
-        console.log(warn);
-    });
+        console.log('Error sending warning to webhook')
+        console.log(warn)
+    })
 });
