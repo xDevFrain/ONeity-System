@@ -13,7 +13,7 @@ module.exports = async (client, interaction, args) => {
     const question = interaction.options.getString('question');
 
     if (!question) {
-        if (!interaction.replied) {
+        if (!interaction.deferred && !interaction.replied) {
             return interaction.reply({
                 content: "Please provide a question for the 8ball.",
                 ephemeral: true
@@ -46,20 +46,20 @@ module.exports = async (client, interaction, args) => {
             .setFooter({ text: "Enjoy your fortune!", iconURL: client.user.displayAvatarURL() })
             .setTimestamp();
 
-        if (!interaction.replied) {
-            await interaction.reply({ embeds: [embed] });
-        } else {
+        if (interaction.replied) {
             await interaction.editReply({ embeds: [embed] });
+        } else {
+            await interaction.reply({ embeds: [embed] });
         }
     } catch (error) {
         console.error(error);
-        if (!interaction.replied) {
-            return interaction.reply({
+        if (interaction.replied) {
+            await interaction.editReply({
                 content: "There was an issue fetching the answer. Please try again later!",
                 ephemeral: true
             });
         } else {
-            return interaction.editReply({
+            await interaction.reply({
                 content: "There was an issue fetching the answer. Please try again later!",
                 ephemeral: true
             });
