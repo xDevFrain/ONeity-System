@@ -19,6 +19,11 @@ console.log(chalk.blue(chalk.bold(`System`)), (chalk.white(`>>`)), (chalk.green(
 console.log(`\u001b[0m`)
 console.log(chalk.blue(chalk.bold(`System`)), (chalk.white(`>>`)), chalk.red(`Version ${require(`${process.cwd()}/package.json`).version}`), (chalk.green(`loaded`)))
 console.log(`\u001b[0m`);
+app.get("/", (req, res) => {
+    res.setHeader('Content-Type', 'text/html');
+    res.send(`ONeity System is running correctly`);
+    res.end()
+});
 app.listen(3000, () => console.log(chalk.blue(chalk.bold(`Server`)), (chalk.white(`>>`)), (chalk.green(`Running on`)), (chalk.red(`3000`))))
 require('./bot')
 
@@ -27,12 +32,10 @@ const consoleLogs = new Discord.WebhookClient({
     id: webhook.consoleLogs.id,
     token: webhook.consoleLogs.token,
 });
-
 const warnLogs = new Discord.WebhookClient({
     id: webhook.warnLogs.id,
     token: webhook.warnLogs.token,
 });
-
 process.on('unhandledRejection', error => {
     console.error('Unhandled promise rejection:', error);
     if (error) if (error.length > 950) error = error.slice(0, 950) + '... view console for details';
@@ -58,7 +61,6 @@ process.on('unhandledRejection', error => {
         console.log(error)
     })
 });
-
 process.on('warning', warn => {
     console.warn("Warning:", warn);
     const embed = new Discord.EmbedBuilder()
