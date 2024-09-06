@@ -6,15 +6,24 @@ const openai = new OpenAI({
 });
 
 module.exports = async (client, interaction, args) => {
-    await interaction.deferReply();
+    if (!interaction.deferred && !interaction.replied) {
+        await interaction.deferReply();
+    }
 
     const question = interaction.options.getString('question');
 
     if (!question) {
-        return interaction.editReply({
-            content: "Please provide a question for the 8ball.",
-            ephemeral: true
-        });
+        if (!interaction.replied) {
+            return interaction.reply({
+                content: "Please provide a question for the 8ball.",
+                ephemeral: true
+            });
+        } else {
+            return interaction.editReply({
+                content: "Please provide a question for the 8ball.",
+                ephemeral: true
+            });
+        }
     }
 
     try {
@@ -37,12 +46,23 @@ module.exports = async (client, interaction, args) => {
             .setFooter({ text: "Enjoy your fortune!", iconURL: client.user.displayAvatarURL() })
             .setTimestamp();
 
-        await interaction.editReply({ embeds: [embed] });
+        if (!interaction.replied) {
+            await interaction.reply({ embeds: [embed] });
+        } else {
+            await interaction.editReply({ embeds: [embed] });
+        }
     } catch (error) {
         console.error(error);
-        return interaction.editReply({
-            content: "There was an issue fetching the answer. Please try again later!",
-            ephemeral: true
-        });
+        if (!interaction.replied) {
+            return interaction.reply({
+                content: "There was an issue fetching the answer. Please try again later!",
+                ephemeral: true
+            });
+        } else {
+            return interaction.editReply({
+                content: "There was an issue fetching the answer. Please try again later!",
+                ephemeral: true
+            });
+        }
     }
 }
