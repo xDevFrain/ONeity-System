@@ -1,68 +1,51 @@
 const Discord = require('discord.js');
-const { OpenAI } = require('openai');
-
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-});
 
 module.exports = async (client, interaction, args) => {
-    try {
-        if (!interaction.deferred && !interaction.replied) {
-            await interaction.deferReply();
-        }
 
-        const question = interaction.options.getString('question');
+    const question = interaction.options.getString('question');
 
-        if (!question) {
-            if (interaction.deferred) {
-                return interaction.editReply({
-                    content: "Please provide a question for the 8ball.",
-                    ephemeral: true
-                });
-            } else {
-                return interaction.reply({
-                    content: "Please provide a question for the 8ball.",
-                    ephemeral: true
-                });
-            }
-        }
+    const antwoorden = [
+        "Yes!", "Absolutely!", "Without a doubt!", "You can count on it.", "Definitely!",
+        "For sure!", "It is certain!", "No doubt about it!", "You bet!", "Of course!",
+        "Yes, for sure!", "The stars align!", "Your wish will come true!", "You have luck on your side!",
 
-        const gptResponse = await openai.completions.create({
-            model: "gpt-4",
-            prompt: `You are an 8ball game. Respond to this question with a fun but mysterious answer: "${question}"`,
-            max_tokens: 100,
-        });
+        "Unfortunately not.", "No, sorry.", "My sources say no.", "Don't count on it.",
+        "Probably not.", "I wouldn't bet on it.", "No chance!", "It's not looking good.",
+        "Very doubtful.", "Nope!", "Not in a million years!", "The future says no.",
 
-        const answer = gptResponse.choices[0].text.trim();
+        "Ask again later.", "I'm not sure.", "I don't know.", "Maybe.", "Could go either way.",
+        "Hard to say...", "It's possible.", "Who knows?", "I can't tell right now.",
+        "It's up to you!", "It depends on how you see it.", "You should think it over.",
 
-        const embed = new Discord.EmbedBuilder()
-            .setColor('#5865F2')
-            .setTitle(`🎱・8ball Magic Ball`)
-            .setDescription(`Here is your answer!`)
-            .addFields([
-                { name: `❓┇Your Question`, value: `\`\`\`${question}\`\`\``, inline: false },
-                { name: `🎱┇Magic Ball's Answer`, value: `\`\`\`${answer}\`\`\``, inline: false }
-            ])
-            .setFooter({ text: "Enjoy your fortune!", iconURL: client.user.displayAvatarURL() })
-            .setTimestamp();
+        "Why are you asking me?", "I'm just a bot, what do I know?", "Let me check my magic crystal ball...",
+        "I'd tell you, but then I'd have to delete your account.", "Why not flip a coin instead?",
+        "42. The answer to life, the universe, and everything.", "Not even the stars know the answer to that.",
+        "I need coffee to answer that.", "You don't want to know...", "Only time will tell!",
+        "Do you really want to know?", "That’s a secret!", "Just google it!",
 
-        if (interaction.deferred) {
-            await interaction.editReply({ embeds: [embed] });
-        } else {
-            await interaction.reply({ embeds: [embed] });
-        }
-    } catch (error) {
-        console.error('Error fetching the answer:', error);
-        if (interaction.deferred || interaction.replied) {
-            await interaction.editReply({
-                content: "There was an issue fetching the answer. Please try again later!",
-                ephemeral: true
-            });
-        } else {
-            await interaction.reply({
-                content: "There was an issue fetching the answer. Please try again later!",
-                ephemeral: true
-            });
-        }
-    }
+        "Believe in yourself!", "Anything is possible if you try hard enough!", "Don't let doubts hold you back!",
+        "Follow your dreams!", "It’s your decision, trust your instincts!", "Only you can decide that!",
+        "Go for it!", "Take the leap of faith!", "Nothing is impossible!", "The future is what you make it.",
+        "Stay positive!", "You are in control of your destiny!", "The answer lies within you!",
+
+        "Signs point to yes.", "Looks promising!", "It's a coin toss.", "The answer is foggy.",
+        "Try again tomorrow.", "I wouldn't be so sure.", "You might regret it.",
+        "The universe says yes.", "Go with the flow.", "This one's tricky.",
+        "Ask your heart!", "Do or do not, there is no try.", "Listen to your gut feeling."
+    ];
+
+    const resultaat = Math.floor((Math.random() * antwoorden.length));
+
+    const embed = new Discord.EmbedBuilder()
+        .setColor('#5865F2')
+        .setTitle(`🎱・8ball Magic Ball`)
+        .setDescription(`Here is your answer!`)
+        .addFields([
+            { name: `❓┇Your Question`, value: `\`\`\`${question}\`\`\``, inline: false },
+            { name: `🎱┇Magic Ball's Answer`, value: `\`\`\`${antwoorden[resultaat]}\`\`\``, inline: false }
+        ])
+        .setFooter({ text: "Enjoy your fortune!", iconURL: client.user.displayAvatarURL() })
+        .setTimestamp();
+
+    interaction.editReply({ embeds: [embed] });
 }
