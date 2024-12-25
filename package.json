@@ -75,7 +75,7 @@
     "topgg-autoposter": "^2.0.2",
     "util": "^0.12.5",
     "weather-js": "^2.0.0",
-    "ytdl-core": "^4.15.8"
+    "ytdl-core": "^4.11.5"
   },
   "devDependencies": {
     "node": "^18.20.3"
