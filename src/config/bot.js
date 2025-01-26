@@ -10,7 +10,7 @@ module.exports = {
     discord: {
         id: process.env.DISCORD_ID,
         prefix: '!',
-        footer: `© Frain 2021 - ${new Date().getFullYear()}`, 
+        footer: `© Frain 2023 - ${new Date().getFullYear()}`, 
     },
 
     wordList: `Airplane
